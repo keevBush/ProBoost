@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             BackgroundColor='Black'
+             xmlns:vm="clr-namespace:ProBoost.ViewModels"
+             NavigationPage.HasNavigationBar="False"
+             x:Class="ProBoost.Views.RegisterView">
+    <ContentPage.BindingContext>
+        <vm:RegisterViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <StackLayout>
+            <Label  Text="ProBoost" FontSize="Header" HorizontalOptions="Center" TextColor="White" Margin="0,20"/>
+            <Label Text="Register" FontSize="Title" HorizontalOptions="Center" TextColor="White"/>
+            <Entry TextColor="White" Text="{Binding Fullname}" Placeholder="Nom complet" Margin="30,20,30,0" PlaceholderColor="White" ClearButtonVisibility="WhileEditing"/>
+            <Entry TextColor="White" Text="{Binding Email}" Placeholder="Email" Margin="30,20" Keyboard="Email" PlaceholderColor="White" ClearButtonVisibility="WhileEditing"/>
+            <Entry TextColor="White" Text="{Binding Password}" Margin="30,0" Placeholder="Mot de passe" PlaceholderColor="White" IsPassword="True" ClearButtonVisibility="WhileEditing"/>
+            <Entry TextColor="White" Text="{Binding PasswordConfirm}" Margin="30,10" Placeholder="Confirmez le mot de passe" PlaceholderColor="White" IsPassword="True" ClearButtonVisibility="WhileEditing"/>
+            <Button Command="{Binding RegisterCommand}" Margin="30,0,30,10" FontSize="15" Text="Inscription" BackgroundColor="Red" TextColor="White"/>
+            <ActivityIndicator Color="Red" IsRunning="{Binding IsRunning}"/>
+            <Grid VerticalOptions="EndAndExpand" BackgroundColor="#222222" Padding="20">
+                <Label FontSize="Body" HorizontalTextAlignment="Center">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="Vous avez déjà un compte? " TextColor="white"/>
+                            <Span Text="Connectez-vous" FontAttributes="Bold" FontSize="Body" TextColor="Red">
+                                <Span.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                                </Span.GestureRecognizers>
+                            </Span>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

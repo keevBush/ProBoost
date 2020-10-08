@@ -4,13 +4,42 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
+             Title="ProBoost"
+             BackgroundColor="#444444"
              x:Class="ProBoost.MainPage">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem
+            Order="Secondary"
+            Text="Profil"
+            />
+        <ToolbarItem
+            Order="Secondary"
+            Text="Deconnexion"
+            x:Name="logout"
+            Clicked="logout_Clicked"
+            />
+        
+    </ContentPage.ToolbarItems>
 
-    <StackLayout>
-        <!-- Place new controls here -->
-        <Label Text="Welcome to Xamarin.Forms!" 
-           HorizontalOptions="Center"
-           VerticalOptions="CenterAndExpand" />
-    </StackLayout>
+    <Grid>
+        <StackLayout>
+            
+        </StackLayout>
+        <Button
+            BackgroundColor="Black"
+            Text="+"
+            HorizontalOptions="End"
+            VerticalOptions="End"
+            Padding="0"
+            Clicked="Button_Clicked"
+            WidthRequest="60"
+            HeightRequest="60"
+            TextColor="White"
+            FontSize="35"
+            Visual="Material"
+            CornerRadius="40"
+            Margin="0,0,20,20"
+            />
+    </Grid>
 
 </ContentPage>

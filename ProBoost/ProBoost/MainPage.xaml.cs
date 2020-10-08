@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ProBoost.Services;
+using ProBoost.Views;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -16,6 +18,18 @@ namespace ProBoost
         public MainPage()
         {
             InitializeComponent();
+            
+        }
+
+        private void logout_Clicked(object sender, EventArgs e)
+        {
+            DependencyService.Get<IAuthServices>().Logout();
+            Application.Current.MainPage = new Splashscreen();
+        }
+
+        private void Button_Clicked(object sender, EventArgs e)
+        {
+            Navigation.PushModalAsync(new NavigationPage (new NewProject()));
         }
     }
 }

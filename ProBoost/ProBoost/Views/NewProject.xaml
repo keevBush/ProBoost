@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             NavigationPage.HasNavigationBar="True"
+             xmlns:customControls ="clr-namespace:ProBoost.CustomControl"
+             Title="Nouveau projet"
+             NavigationPage.HasBackButton="True"
+             x:Class="ProBoost.Views.NewProject">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Sauvegarder"/>
+        <ToolbarItem Text="Annuler" Clicked="ToolbarItem_Clicked" Order="Secondary" IsDestructive="True"/>
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <StackLayout Spacing="10" Padding="10">
+            <Frame HorizontalOptions="Center" CornerRadius="60" Padding="5">
+                <ActivityIndicator IsRunning="True" Color="Black"/>
+            </Frame>
+            <Frame BorderColor="#888888" HasShadow="False" Padding="5" BackgroundColor="Transparent" CornerRadius="5">
+                <customControls:AppEntry Placeholder="Nom du projet" />
+            </Frame>
+            <Frame BackgroundColor="Black" HorizontalOptions="Start" CornerRadius="20" Padding="10" >
+                <Label Text="cool" TextColor="white" />
+            </Frame>
+            <Frame BorderColor="#888888" HasShadow="False" Padding="5" BackgroundColor="Transparent" CornerRadius="5">
+                <customControls:AppEntry ReturnType="Next" Placeholder="Categories du projet" />
+            </Frame>
+            <Frame BorderColor="#888888" HasShadow="False" Padding="5" BackgroundColor="Transparent" CornerRadius="5">
+                <Editor AutoSize="TextChanges" VerticalOptions="Center" MinimumHeightRequest="150" Placeholder="Description du projet" />
+            </Frame>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
