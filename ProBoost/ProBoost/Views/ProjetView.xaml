@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="ProBoost.Views.ProjetView">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem
+            Text="Rafraîchir"
+            Command="{Binding LoadAllDataCommand}"
+            />
+    </ContentPage.ToolbarItems>
+    <NavigationPage.TitleView>
+        <Grid RowSpacing="0" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <Label TextColor="White" Text="{Binding Projets[0].Name}" FontSize="Title"/>
+            <Label TextColor="White" Opacity="0.7" FontSize="Body" Grid.Row="1" Text="{Binding Name}" />
+        </Grid>
+    </NavigationPage.TitleView>
+    <ContentPage.Content>
+        <StackLayout>
+            <Frame
+                HasShadow="False"
+                BorderColor="#222222"
+                BackgroundColor="Transparent"
+                CornerRadius="10"
+                Margin="10"
+                Padding="12"
+                >
+                <Grid
+                    >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Information du propriétaire" TextColor="Black" FontSize="17" FontAttributes="Bold"/>
+                    <Label Text="Nom complet" Grid.Row="1"/>
+                    <Label Grid.Column="1" Grid.Row="1" Text="{Binding Name}" TextColor="Black"/>
+                    <Label Text="Email" Grid.Row="2"/>
+                    <Label Text="{Binding Email}" Grid.Row="2" Grid.Column="1" TextColor="Black"/>
+                    <Label Text="Numéro de téléphone" Grid.Row="3"/>
+                    <Label Text="{Binding Phone}" Grid.Row="3" Grid.Column="1" TextColor="Black"/>
+                </Grid>
+            </Frame>
+            
+            <Frame Margin="10" Padding="0" CornerRadius="10">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Label Text="{Binding Title}"  Margin="10,10" TextColor="Black" FontSize="17" FontAttributes="Bold"/>
+                    <CollectionView Grid.Row="1" ItemsSource="{Binding Projets}">
+                        <CollectionView.EmptyView>
+                            <Grid>
+                                <Label Text="Aucun projet"  Margin="10,10" VerticalOptions="Center" HorizontalOptions="Center" Opacity="0.7" TextColor="Black" FontSize="17" FontAttributes="Bold"/>
+                            </Grid>
+                        </CollectionView.EmptyView>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                    </Grid.RowDefinitions>
+                                    <Label Margin="10,0,0,0" Text="{Binding Name}" FontSize="Subtitle" FontAttributes="Bold" TextColor="#222222" Grid.Row="0"/>
+                                    <CollectionView Grid.Row="1" ItemsSource="{Binding Categories}" ItemsLayout="HorizontalList" Margin="0,10" HeightRequest="35">
+                                        <CollectionView.ItemTemplate>
+                                            <DataTemplate>
+                                                <Frame HasShadow="False" BackgroundColor="Black" CornerRadius="50" Padding="9">
+                                                    <Label VerticalOptions="Center" Text="Cool" TextColor="White"/>
+                                                </Frame>
+                                            </DataTemplate>
+                                        </CollectionView.ItemTemplate>
+                                    </CollectionView>
+                                    <BoxView Grid.Row="2" HeightRequest="1" VerticalOptions="Center"/>
+                                    <Label Margin="10,0,0,0" Text="{Binding Description}" FontSize="Body" FontAttributes="Italic" Grid.Row="3"/>
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </Grid>
+            </Frame>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

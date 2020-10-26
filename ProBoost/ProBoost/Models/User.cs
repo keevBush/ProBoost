@@ -8,6 +8,7 @@ namespace ProBoost.Models
     {
         public string UId { get; set; }
         public string Fullname { get; set; }
+        public string Phone { get; set; }
         public string Password { get; set; }
         public string Email { get; set; }
     }

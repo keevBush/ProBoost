@@ -36,9 +36,9 @@ namespace ProBoost.Views
                     Application.Current.MainPage = new NavigationPage(new LoginView());
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
-
+                await DisplayAlert("Erreur", e.Message, "OK");
             }
             finally
             {

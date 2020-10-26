@@ -4,13 +4,9 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             Title="ProBoost"
              xmlns:converters="clr-namespace:ProBoost.Converter"
-             xmlns:vm="clr-namespace:ProBoost.ViewModels"
-             x:Class="ProBoost.MainPage">
-    <ContentPage.BindingContext>
-        <vm:MainViewModel/>
-    </ContentPage.BindingContext>
+             Title="Mes projets"
+             x:Class="ProBoost.Views.MyProjects">
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:InverterConverter x:Key="inverter_converter"/>
@@ -23,36 +19,15 @@
             Text="Rafraîchir"
             IsEnabled="{Binding IsRunning, Converter={ StaticResource inverter_converter }}"
             />
-        <ToolbarItem
-            Order="Secondary"
-            Clicked="ToolbarItem_Clicked"
-            Text="Profil"
-            />
-        <ToolbarItem
-            Order="Secondary"
-            Text="Mes projets"
-            Clicked="ToolbarItem_Clicked_1"
-            />
-        <ToolbarItem
-            Order="Secondary"
-            Text="Deconnexion"
-            x:Name="logout"
-            Clicked="logout_Clicked"
-            />
-        
     </ContentPage.ToolbarItems>
-
-    <Grid>
-        <ActivityIndicator VerticalOptions="Start" IsRunning="{Binding IsRunning}" IsVisible="{Binding IsRunning}" Color="Black"/>
+    <ContentPage.Content>
         <StackLayout>
+            <ActivityIndicator Color="Black" IsRunning="{Binding IsRunning}" IsVisible="{Binding IsRunning}"/>
             <ListView x:Name="lst"  SelectionMode="None" ItemsSource="{Binding Projets}" RefreshCommand="{Binding LoadAllProjects}" IsPullToRefreshEnabled="False" Margin="0,0,0,30" HasUnevenRows="True" >
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <Grid Padding="10" RowSpacing="0" BindingContext="{Binding .}" >
-                                <Grid.GestureRecognizers>
-                                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
-                                </Grid.GestureRecognizers>
+                            <Grid Padding="10" RowSpacing="0" >
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="auto"/>
                                     <RowDefinition Height="auto"/>
@@ -79,31 +54,15 @@
                                         </DataTemplate>
                                     </CollectionView.ItemTemplate>
                                 </CollectionView>
-                                <BoxView Grid.Row="3" HeightRequest="1" VerticalOptions="Center"/>
-                                <Label Margin="10,0,0,0" Text="{Binding Name}" FontSize="Subtitle" FontAttributes="Bold" TextColor="#222222" Grid.Row="4"/>
+                                <BoxView Grid.Row="3" Color="#AAAAAA" HeightRequest="0.5" VerticalOptions="Center"/>
+                                <Label Margin="10,0,0,0" Text="{Binding Name}" FontSize="Title" FontAttributes="Bold" TextColor="#333333" Grid.Row="4"/>
                                 <Label Margin="10,0,0,0" Text="{Binding Description}" FontSize="Body" FontAttributes="Italic" Grid.Row="5"/>
                             </Grid>
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            
-        </StackLayout>
-        <Button
-            BackgroundColor="Black"
-            Text="+"
-            HorizontalOptions="End"
-            VerticalOptions="End"
-            Padding="0"
-            Clicked="Button_Clicked"
-            WidthRequest="60"
-            HeightRequest="60"
-            TextColor="White"
-            FontSize="35"
-            Visual="Material"
-            CornerRadius="40"
-            Margin="0,0,20,20"
-            />
-    </Grid>
 
+        </StackLayout>
+    </ContentPage.Content>
 </ContentPage>

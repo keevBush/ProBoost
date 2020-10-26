@@ -1,4 +1,6 @@
-﻿using ProBoost.Services;
+﻿using ProBoost.Models;
+using ProBoost.Services;
+using ProBoost.ViewModels;
 using ProBoost.Views;
 using System;
 using System.Collections.Generic;
@@ -18,7 +20,12 @@ namespace ProBoost
         public MainPage()
         {
             InitializeComponent();
-            
+            LoadData();
+        }
+
+        private async void LoadData()
+        {
+            await Task.Delay(500);
         }
 
         private void logout_Clicked(object sender, EventArgs e)
@@ -30,6 +37,23 @@ namespace ProBoost
         private void Button_Clicked(object sender, EventArgs e)
         {
             Navigation.PushModalAsync(new NavigationPage (new NewProject()));
+        }
+
+        private void ToolbarItem_Clicked(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new Profil());
+        }
+
+
+        private async void ToolbarItem_Clicked_1(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new MyProjects(DependencyService.Get<IAuthServices>().CurrentUser.UId));
+        }
+
+        private async void TapGestureRecognizer_Tapped(object sender, EventArgs e)
+        {
+            var projet = (Projet)(((Grid)sender).BindingContext) ;
+            await Navigation.PushAsync(new ProjetView(projet));
         }
     }
 }

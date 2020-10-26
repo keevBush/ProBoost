@@ -7,28 +7,52 @@
              NavigationPage.HasNavigationBar="True"
              xmlns:customControls ="clr-namespace:ProBoost.CustomControl"
              Title="Nouveau projet"
+             xmlns:converters="clr-namespace:ProBoost.Converter"
+             xmlns:vm="clr-namespace:ProBoost.ViewModels"
              NavigationPage.HasBackButton="True"
+             x:Name="page"
              x:Class="ProBoost.Views.NewProject">
+    <ContentPage.BindingContext>
+        <vm:NewProjectViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:InverterConverter x:Key="inverter_converter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Sauvegarder"/>
+        <ToolbarItem Command="{Binding SaveCommand}" Text="Sauvegarder"/>
         <ToolbarItem Text="Annuler" Clicked="ToolbarItem_Clicked" Order="Secondary" IsDestructive="True"/>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout Spacing="10" Padding="10">
-            <Frame HorizontalOptions="Center" CornerRadius="60" Padding="5">
-                <ActivityIndicator IsRunning="True" Color="Black"/>
+            <Frame HorizontalOptions="Center" IsVisible="{Binding IsRunning}" CornerRadius="60" Padding="5">
+                <ActivityIndicator IsRunning="{Binding IsRunning}" Color="Black"/>
             </Frame>
             <Frame BorderColor="#888888" HasShadow="False" Padding="5" BackgroundColor="Transparent" CornerRadius="5">
-                <customControls:AppEntry Placeholder="Nom du projet" />
+                <customControls:AppEntry Text="{Binding Name}" IsEnabled="{Binding IsRunning, Converter={StaticResource inverter_converter}}" Placeholder="Nom du projet" />
             </Frame>
-            <Frame BackgroundColor="Black" HorizontalOptions="Start" CornerRadius="20" Padding="10" >
-                <Label Text="cool" TextColor="white" />
+            <CollectionView
+                ItemsLayout="HorizontalList"
+                HeightRequest="50"
+                ItemsSource="{Binding Categories}"
+                >
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame Margin="0,0,5,0" BackgroundColor="Black" VerticalOptions="Center" CornerRadius="20" Padding="7"  >
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Source={x:Reference page},Path=BindingContext.DeteteCategoryCommand}" CommandParameter="{Binding .}"/>
+                            </Frame.GestureRecognizers>
+                            <Label Text="{Binding .}" TextColor="white" VerticalOptions="Center" />
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <Frame BorderColor="#888888" HasShadow="False" Padding="5" BackgroundColor="Transparent" CornerRadius="5">
+                <customControls:AppEntry Text="{Binding CurrentCategory}" ReturnCommand="{Binding AddCategoryCommand}" IsEnabled="{Binding IsRunning, Converter={StaticResource inverter_converter}}" ReturnType="Send" Placeholder="Categories du projet" />
             </Frame>
             <Frame BorderColor="#888888" HasShadow="False" Padding="5" BackgroundColor="Transparent" CornerRadius="5">
-                <customControls:AppEntry ReturnType="Next" Placeholder="Categories du projet" />
-            </Frame>
-            <Frame BorderColor="#888888" HasShadow="False" Padding="5" BackgroundColor="Transparent" CornerRadius="5">
-                <Editor AutoSize="TextChanges" VerticalOptions="Center" MinimumHeightRequest="150" Placeholder="Description du projet" />
+                <Editor AutoSize="TextChanges" Text="{Binding Description}" IsEnabled="{Binding IsRunning, Converter={StaticResource inverter_converter}}" VerticalOptions="Center" MinimumHeightRequest="150" Placeholder="Description du projet" />
             </Frame>
         </StackLayout>
     </ContentPage.Content>

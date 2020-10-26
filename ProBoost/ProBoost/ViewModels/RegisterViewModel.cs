@@ -69,7 +69,7 @@ namespace ProBoost.ViewModels
                 if (PasswordConfirm != Password)
                     throw new ApplicationException("Mot de passe saisie different");
                 IsRunning = true;
-                await DependencyService.Get<IAuthServices>().Register(Email, Fullname, Password);
+                await DependencyService.Get<IAuthServices>().Register(Email.Trim(), Fullname.Trim(), Password);
                 Application.Current.MainPage = new NavigationPage(new MainPage());
             }
             catch (Exception e)

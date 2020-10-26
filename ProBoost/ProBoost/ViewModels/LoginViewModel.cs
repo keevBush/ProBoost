@@ -47,7 +47,7 @@ namespace ProBoost.ViewModels
                 Validation.IsRquired("Email", Email);
                 Validation.IsRquired("Mot de passe", Password);
                 IsRunning = true;
-                await DependencyService.Get<IAuthServices>().Login(Email, Password);
+                await DependencyService.Get<IAuthServices>().Login(Email.Trim(), Password);
                 IsRunning = false;
                 Application.Current.MainPage = new NavigationPage(new MainPage());
             }
